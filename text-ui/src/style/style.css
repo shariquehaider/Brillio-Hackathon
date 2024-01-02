@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&family=Satisfy&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    padding: 0;
+    margin: 0;
+    background-color: black;
+}
+
+a {
+    text-decoration: none;
+}
+
+.header {
+    height: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.header div:first-child {
+    margin-top: 2rem;
+    background-color: black;
+    width: 20rem;
+    text-align: center;
+    border-radius: 2rem;
+}
+
+.header h1 {
+    letter-spacing: 4px;
+    font-family: 'Satisfy', cursive;
+    background-color: black;
+    color: #ff00ff;
+    padding: 10px;
+    text-align: center;
+    display: inline-block;
+    border-radius: 5px;
+    animation: glow 1.5s ease-in-out infinite alternate;
+    font-size: 3rem;
+}
+
+.container-main {
+    padding: 2rem 5rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.description {
+    padding: 2rem;
+    text-align: center;
+    width: 50%;
+    color: white;
+}
+
+.form {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+textarea {
+    width: 40rem;
+    height: 15rem;
+    background-color: black;
+    color: #ff00ff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    resize: none;
+    overflow: auto;
+    font-size: 16px;
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.8), 0 0 20px rgba(255, 0, 255, 0.8);
+    animation: glowTextArea 1.5s ease-in-out infinite alternate;
+    transition-duration: .5s;
+}
+
+textarea:focus {
+    letter-spacing: 2px;
+    outline: none;
+}
+
+.button {
+    background-color: #ff00ff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition-duration: 1s;
+}
+
+.button:hover {
+    background-color: #cc00cc;
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.8), 0 0 20px rgba(255, 0, 255, 0.8);
+}
+
+.reset {
+    border: none;
+    color: white;
+    transition-duration: 0.5s;
+}
+
+.reset:hover{
+    letter-spacing: 2px;
+}
+
+.footer {
+    padding: 5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.footer p {
+    color: #00bfff;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+footer p:hover {
+    color: #009acd;
+}
+
+.loading {
+    display: inline-flex;
+    align-items: center;
+}
+
+.loading .spacer {
+    margin-right: 2px;
+}
+
+.loading span {
+    animation-name: blink;
+    animation-duration: 1.4s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 1px;
+}
+
+.loading span:nth-of-type(2) {
+    animation-delay: 0.2s;
+}
+
+.loading span:nth-of-type(3) {
+    animation-delay: 0.4s;
+}
+
+#select-option {
+    padding: 1rem;
+    background-color: transparent;
+    color: #ff00ff;
+}
+
+option{
+    background-color: black;
+    color: white;
+}
+
+.result {
+    padding: 2rem;
+    min-width: 40rem;
+    height: fit-content;
+    border: 2px solid white;
+    background-color: white;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px rgba(255, 0, 255, 0.8), 0 0 20px rgba(255, 0, 255, 0.8);
+    }
+
+    to {
+        text-shadow: 0 0 20px rgba(255, 0, 255, 0.8), 0 0 30px rgba(255, 0, 255, 0.8);
+    }
+}
+
+@keyframes glowTextArea {
+    from {
+        box-shadow: 0 0 20px rgba(255, 0, 255, 0.8), 0 0 30px rgba(255, 0, 255, 0.8);
+    }
+
+    to {
+        box-shadow: 0 0 30px rgba(255, 0, 255, 0.8), 0 0 40px rgba(255, 0, 255, 0.8);
+    }
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0.2;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.2;
+    }
+}

@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { ChatGPTMessages } from "./interfaces";
 
-export function removeCodeWrapping(str: string) {
+function removeCodeWrapping(str: string) {
     if (str.startsWith('"""') && str.endsWith('"""')) {
         return str.slice(3, -3);
     } else {
@@ -14,7 +14,6 @@ export function OpenAPI(clear: () => void) {
     const [conversation, setConversation] = useState<ChatGPTMessages[]>([]);
     const [generatedCode, setGeneratedCode] = useState("");
     const [exportedCode, setExportedCode] = useState<any>("");
-    // const [selectedExport, setSelectedExport] = useState("");
 
     function createPrompt(role: 'user' | 'assistant', content: string): ChatGPTMessages {
         return {
@@ -25,9 +24,6 @@ export function OpenAPI(clear: () => void) {
 
     const requestUI = useCallback(async (prompt: string, framework: string) => {
         setLoading(true);
-        setExportedCode(() => {
-            return framework;
-        });
         const request = createPrompt('user', prompt);
         setConversation(prevValue => [...prevValue, request]);
         const response = await fetch("/api/generate", {
@@ -50,7 +46,8 @@ export function OpenAPI(clear: () => void) {
         const rawValue = await response.text();
         const reply = createPrompt('assistant', rawValue);
         setConversation(prevValue => [...prevValue, reply]);
-        const code = removeCodeWrapping(rawValue);
+        let code = rawValue.replace(/"/g, '');
+        code = removeCodeWrapping(code);
         if (framework === "Html") {
             setExportedCode(code);
         } else {
@@ -71,14 +68,13 @@ export function OpenAPI(clear: () => void) {
             }
             const readerData = translatedFrameworkCode.getReader();
             const decoderData = new TextDecoder();
-            const {value: translatedCodeValue} = await readerData.read();
-            const newCode = decoderData.decode(translatedCodeValue)
+            const {value} = await readerData.read();
+            const newCode = decoderData.decode(value)
 
             setExportedCode(newCode);
         }
         const newCode = code.replace(/\\/g, '')
-        setGeneratedCode(newCode.replace(/n /g, ''));
-        // setSelectedExport("Html");
+        setGeneratedCode(newCode.replace(/>n/g, ''));
         clear();
         setLoading(false);
     }, [conversation]);
@@ -87,7 +83,6 @@ export function OpenAPI(clear: () => void) {
         setConversation([]);
         setGeneratedCode("");
         setLoading(false);
-        // setSelectedExport("Html");
         clear();
     }, []);
     return {exportedCode, isLoading, requestUI, generatedCode, reset};

@@ -1,4 +1,4 @@
-export default function LoadingDots() {
+export default function LoadingDots(): JSX.Element {
     const color = "#000";
 
     return (

@@ -1,20 +1,21 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { OpenAPI } from "./Hooks";
 import LoadingDots from "./loadingButton";
 import { Frameworks } from "./interfaces";
 import GeneratedCode from "./GeneratedCode";
+import { Toaster } from "react-hot-toast";
 
 
-export default function Main() {
+export default function Main(): JSX.Element {
     const [prompt, setPrompt] = useState("");
     const [ framework, setFramework ] = useState("Html")
     const { exportedCode, isLoading, generatedCode, requestUI, reset } = OpenAPI(() => setPrompt(""));
 
-    const handleSelectedExport = (event: any) => {
+    const handleSelectedExport = (event: any): void => {
         const selectedExport = event.target.value;
         setFramework(selectedExport);
     }
-    const handlePrompt = (event: any) => {
+    const handlePrompt = (event: any): void => {
         setPrompt(event.target.value)
     }
     const handleClick = (event: any): void => {
@@ -47,6 +48,7 @@ export default function Main() {
                 {isLoading && <button className="button"
                     disabled><LoadingDots /></button>}
             </div>
+            <Toaster toastOptions={{ duration: 4000 }}/>
             {generatedCode && <GeneratedCode generatedCode={generatedCode} exportedCode={exportedCode} />}
         </div>
     )

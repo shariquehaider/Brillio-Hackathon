@@ -56,7 +56,6 @@ router.post('/export', async (req, res) => {
         ],
     };
     const stream = await requestAPI(payload);
-    console.log(stream)
     res.json(stream);
 })
 
